@@ -1,0 +1,38 @@
+name: CMake (Windows)
+
+on: [push, pull_request]
+
+env:
+  BUILD_TYPE: RelWithDebInfo
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install vcpkg and dependencies
+      run: |
+        cd ..
+        git clone https://github.com/Microsoft/vcpkg.git
+        cd vcpkg
+        git checkout --force 2020.11-1
+        .\bootstrap-vcpkg
+        .\vcpkg install gtest:x64-windows
+
+    - name: Create build directory
+      run: mkdir build
+
+    - name: Configure CMake
+      working-directory: ${{github.workspace}}/build
+      run: |
+        cmake -A x64 "-DCMAKE_TOOLCHAIN_FILE=${env:GITHUB_WORKSPACE}/../vcpkg/scripts/buildsystems/vcpkg.cmake" "-DCMAKE_BUILD_TYPE=${env:BUILD_TYPE}" ..
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      run: cmake --build . --config ${env:BUILD_TYPE}
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      run: ctest -V -C ${env:BUILD_TYPE}
