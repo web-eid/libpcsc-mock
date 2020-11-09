@@ -17,16 +17,16 @@ jobs:
       uses: lukka/run-vcpkg@v2
       with:
         vcpkgArguments: gtest:x64-windows
-        vcpkgDirectory: ${{ runner.workspace }}/vcpkg/
-        vcpkgGitCommitId: ec6fe06e8da05a8157dc8581fa96b36b571c1bd5
         vcpkgTriplet: x64-windows
+        vcpkgDirectory: ${{runner.workspace}}/vcpkg/
+        vcpkgGitCommitId: ec6fe06e8da05a8157dc8581fa96b36b571c1bd5
 
     - name: Create build directory
       run: mkdir build
 
     - name: Configure CMake
       working-directory: ${{github.workspace}}/build
-      run: cmake -A x64 "-DCMAKE_TOOLCHAIN_FILE=${env:GITHUB_WORKSPACE}/../vcpkg/scripts/buildsystems/vcpkg.cmake" "-DCMAKE_BUILD_TYPE=${env:BUILD_TYPE}" ..
+      run: cmake -A x64 "-DCMAKE_TOOLCHAIN_FILE=${{runner.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DCMAKE_BUILD_TYPE=${env:BUILD_TYPE}" ..
 
     - name: Build
       working-directory: ${{github.workspace}}/build
