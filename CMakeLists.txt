@@ -5,10 +5,6 @@ endif()
 
 project(pcsc-mock)
 
-# Common compile options.
-
-set(CMAKE_CXX_EXTENSIONS OFF)
-
 # The pcsc-mock library itself.
 
 add_library(${PROJECT_NAME}
