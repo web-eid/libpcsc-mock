@@ -27,6 +27,7 @@
 #include <map>
 #include <vector>
 #include <stdexcept>
+#include <stdint.h>
 
 #ifdef _WIN32
 using MOCK_LONG = int32_t;
