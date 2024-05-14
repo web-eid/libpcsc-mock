@@ -1,4 +1,6 @@
 # libpcsc-mock
+**NB! Please note that the libpcsc-mock code was moved to libelectronic-id repository.<br>
+We won't be accepting pull requests or responding to issues in this repository anymore. We are happy to accept your proposals in the libelectronic-id repository: https://github.com/web-eid/libelectronic-id.**
 
 C++ library for mocking responses to PC/SC smart card API function calls.
 Intended to be used in unit tests to emulate complex PC/SC scenarios like
